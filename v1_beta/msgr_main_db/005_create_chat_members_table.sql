@@ -38,11 +38,20 @@ BEGIN
                 user_id BIGINT NOT NULL,
                 chat_id BIGINT NOT NULL,
 
-                role VARCHAR(16) DEFAULT 'member'
+                role VARCHAR(16) DEFAULT ''member'',
 
-                CONSTRAINT chat_members_pk PRIMARY KEY (id)
+                CONSTRAINT chat_members_pk PRIMARY KEY (id),
+                CONSTRAINT chat_members_unique UNIQUE (user_id, chat_id),
+                CONSTRAINT fk_chat_members_user FOREIGN KEY (user_id)
+                    REFERENCES msgr_schema.accounts (id) ON DELETE CASCADE,
+                CONSTRAINT fk_chat_members_chat FOREIGN KEY (chat_id)
+                    REFERENCES msgr_schema.chats (id) ON DELETE CASCADE
             )
         ';
+
+        CREATE INDEX idx_chat_members_user_id ON msgr_schema.chat_members (user_id);
+        CREATE INDEX idx_chat_members_chat_id ON msgr_schema.chat_members (chat_id);
+
         RAISE NOTICE 'Table msgr_schema.chat_members created.';
     ELSE
         RAISE NOTICE 'Table msgr_schema.chat_members already exists.';

@@ -36,14 +36,22 @@ BEGIN
                 id BIGINT DEFAULT nextval(''msgr_schema.msg_tags_seq''),
                 message_id BIGINT NOT NULL,
 
-                for_user_id BIGINT NOT NULL,
+                for_user_id BIGINT,
 
                 type VARCHAR(32) NOT NULL,
                 tag VARCHAR(32) NOT NULL,
 
-                CONSTRAINT msg_tags_pk PRIMARY KEY (id)
+                CONSTRAINT msg_tags_pk PRIMARY KEY (id),
+                CONSTRAINT fk_msg_tags_message FOREIGN KEY (message_id)
+                    REFERENCES msgr_schema.messages (id) ON DELETE CASCADE,
+                CONSTRAINT fk_msg_tags_user FOREIGN KEY (for_user_id)
+                    REFERENCES msgr_schema.accounts (id) ON DELETE CASCADE
             )
         ';
+
+        CREATE INDEX idx_msg_tags_message_id ON msgr_schema.msg_tags (message_id);
+        CREATE INDEX idx_msg_tags_for_user_id ON msgr_schema.msg_tags (for_user_id);
+
         RAISE NOTICE 'Table msgr_schema.msg_tags created.';
     ELSE
         RAISE NOTICE 'Table msgr_schema.msg_tags already exists.';

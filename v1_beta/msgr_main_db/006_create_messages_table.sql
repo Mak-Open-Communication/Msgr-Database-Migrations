@@ -39,11 +39,19 @@ BEGIN
                 sender_user_id BIGINT NOT NULL,
                 is_read BOOLEAN NOT NULL,
 
-		        created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+                created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 
-                CONSTRAINT messages_pk PRIMARY KEY (id)
+                CONSTRAINT messages_pk PRIMARY KEY (id),
+                CONSTRAINT fk_messages_chat FOREIGN KEY (chat_id)
+                    REFERENCES msgr_schema.chats (id) ON DELETE CASCADE,
+                CONSTRAINT fk_messages_sender FOREIGN KEY (sender_user_id)
+                    REFERENCES msgr_schema.accounts (id) ON DELETE CASCADE
             )
         ';
+
+        CREATE INDEX idx_messages_chat_id ON msgr_schema.messages (chat_id);
+        CREATE INDEX idx_messages_sender_user_id ON msgr_schema.messages (sender_user_id);
+
         RAISE NOTICE 'Table msgr_schema.messages created.';
     ELSE
         RAISE NOTICE 'Table msgr_schema.messages already exists.';

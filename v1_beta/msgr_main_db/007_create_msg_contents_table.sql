@@ -39,11 +39,16 @@ BEGIN
                 resource_name VARCHAR(16) NOT NULL,
 
                 type VARCHAR(32) NOT NULL,
-                content VARCHAR(2048),
+                content VARCHAR(2048) NOT NULL,
 
-                CONSTRAINT msg_contents_pk PRIMARY KEY (id)
+                CONSTRAINT msg_contents_pk PRIMARY KEY (id),
+                CONSTRAINT fk_msg_contents_message FOREIGN KEY (message_id)
+                    REFERENCES msgr_schema.messages (id) ON DELETE CASCADE
             )
         ';
+
+        CREATE INDEX idx_msg_contents_message_id ON msgr_schema.msg_contents (message_id);
+
         RAISE NOTICE 'Table msgr_schema.msg_contents created.';
     ELSE
         RAISE NOTICE 'Table msgr_schema.msg_contents already exists.';

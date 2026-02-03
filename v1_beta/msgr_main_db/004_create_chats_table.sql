@@ -38,11 +38,16 @@ BEGIN
                 owner_user_id BIGINT NOT NULL,
                 chat_name VARCHAR(256) NOT NULL,
 
-		        created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+                created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 
-                CONSTRAINT chats_pk PRIMARY KEY (id)
+                CONSTRAINT chats_pk PRIMARY KEY (id),
+                CONSTRAINT fk_chats_owner FOREIGN KEY (owner_user_id)
+                    REFERENCES msgr_schema.accounts (id) ON DELETE CASCADE
             )
         ';
+
+        CREATE INDEX idx_chats_owner_user_id ON msgr_schema.chats (owner_user_id);
+
         RAISE NOTICE 'Table msgr_schema.chats created.';
     ELSE
         RAISE NOTICE 'Table msgr_schema.chats already exists.';

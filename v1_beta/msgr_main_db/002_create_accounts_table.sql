@@ -41,11 +41,15 @@ BEGIN
                 last_online_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 
                 created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-		        account_is_active BOOLEAN NOT NULL,
+                account_is_active BOOLEAN NOT NULL,
 
-                CONSTRAINT accounts_pk PRIMARY KEY (id)
+                CONSTRAINT accounts_pk PRIMARY KEY (id),
+                CONSTRAINT accounts_username_unique UNIQUE (username)
             )
         ';
+
+        CREATE INDEX idx_accounts_username ON msgr_schema.accounts (username);
+
         RAISE NOTICE 'Table msgr_schema.accounts created.';
     ELSE
         RAISE NOTICE 'Table msgr_schema.accounts already exists.';
