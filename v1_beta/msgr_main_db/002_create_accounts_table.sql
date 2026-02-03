@@ -35,8 +35,11 @@ BEGIN
             CREATE TABLE msgr_schema.accounts (
                 id BIGINT DEFAULT nextval(''msgr_schema.accounts_seq''),
                 username VARCHAR(256) NOT NULL,
+                display_name VARCHAR(256) NOT NULL,
                 password_hash TEXT NOT NULL,
-		        
+
+                last_online_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+
                 created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 		        account_is_active BOOLEAN NOT NULL,
 

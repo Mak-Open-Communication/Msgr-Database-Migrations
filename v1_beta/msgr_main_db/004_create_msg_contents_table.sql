@@ -35,8 +35,10 @@ BEGIN
             CREATE TABLE msgr_schema.msg_contents (
                 id BIGINT DEFAULT nextval(''msgr_schema.msg_contents_seq''),
                 message_id BIGINT NOT NULL,
-                resource_name VARCHAR(256) NOT NULL,
-                type VARCHAR(64) NOT NULL,
+
+                resource_name VARCHAR(16) NOT NULL,
+
+                type VARCHAR(32) NOT NULL,
                 content VARCHAR(2048),
 
                 CONSTRAINT msg_contents_pk PRIMARY KEY (id)

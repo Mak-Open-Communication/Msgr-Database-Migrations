@@ -35,8 +35,11 @@ BEGIN
             CREATE TABLE msgr_schema.msg_tags (
                 id BIGINT DEFAULT nextval(''msgr_schema.msg_tags_seq''),
                 message_id BIGINT NOT NULL,
-                type VARCHAR(64) NOT NULL,
-                tag VARCHAR(64),
+
+                for_user_id BIGINT NOT NULL,
+
+                type VARCHAR(32) NOT NULL,
+                tag VARCHAR(32) NOT NULL,
 
                 CONSTRAINT msg_tags_pk PRIMARY KEY (id)
             )

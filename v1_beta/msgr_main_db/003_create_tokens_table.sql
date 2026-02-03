@@ -33,10 +33,12 @@ BEGIN
     ) THEN
         EXECUTE '
             CREATE TABLE msgr_schema.tokens (
-                id BIGINT DEFAULT nextval(''msgr_schema.tokens_seq''),
-                token TEXT NOT NULL,
+                id BIGINT  DEFAULT nextval(''msgr_schema.tokens_seq''),
                 user_id BIGINT NOT NULL,
-		        
+
+                token VARCHAR(64) NOT NULL,
+                agent TEXT NOT NULL,
+
                 created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 
                 CONSTRAINT tokens_pk PRIMARY KEY (id)

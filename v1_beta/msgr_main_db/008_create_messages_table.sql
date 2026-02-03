@@ -35,8 +35,8 @@ BEGIN
             CREATE TABLE msgr_schema.messages (
                 id BIGINT DEFAULT nextval(''msgr_schema.messages_seq''),
                 chat_id BIGINT NOT NULL,
-                sender VARCHAR(256) NOT NULL,
 
+                sender_user_id BIGINT NOT NULL,
                 is_read BOOLEAN NOT NULL,
 
 		        created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,

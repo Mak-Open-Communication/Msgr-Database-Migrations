@@ -8,11 +8,11 @@ BEGIN
             version TEXT NOT NULL,
             updated_at TIMESTAMP NOT NULL DEFAULT now()
         );
-        INSERT INTO msgr_schema.schema_info (version) VALUES ('1.0');
-        RAISE NOTICE 'Version 1.0 inserted into schema_info';
+        INSERT INTO msgr_schema.schema_info (version) VALUES ('2.0');
+        RAISE NOTICE 'Version 2.0 inserted into schema_info';
     ELSE
-        UPDATE msgr_schema.schema_info SET version = '1.0', updated_at = now();
-        RAISE NOTICE 'Schema version updated to 1.0';
+        UPDATE msgr_schema.schema_info SET version = '2.0', updated_at = now();
+        RAISE NOTICE 'Schema version updated to 2.0';
     END IF;
 END
 $$;

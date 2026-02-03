@@ -34,8 +34,9 @@ BEGIN
         EXECUTE '
             CREATE TABLE msgr_schema.chats (
                 id BIGINT DEFAULT nextval(''msgr_schema.chats_seq''),
-                owner VARCHAR(256) NOT NULL,
-                name VARCHAR(256) NOT NULL,
+
+                owner_user_id BIGINT NOT NULL,
+                chat_name VARCHAR(256) NOT NULL,
 
 		        created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 

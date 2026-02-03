@@ -34,8 +34,11 @@ BEGIN
         EXECUTE '
             CREATE TABLE msgr_schema.chat_members (
                 id BIGINT DEFAULT nextval(''msgr_schema.chat_members_seq''),
+
                 user_id BIGINT NOT NULL,
                 chat_id BIGINT NOT NULL,
+
+                role VARCHAR(16) DEFAULT 'member'
 
                 CONSTRAINT chat_members_pk PRIMARY KEY (id)
             )
